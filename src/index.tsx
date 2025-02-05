@@ -8,6 +8,7 @@ import Step2 from "./pages/Step2.jsx";
 import React from "react";
 import AboutUs from "./pages/AbousUs";
 import ContactUs from "./pages/ContactUs";
+import Login from "./pages/Login.js";
 
 export default function Main() {
   return (
@@ -19,6 +20,7 @@ export default function Main() {
         <Route path="/step2" element={<Step2 />} />
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
