@@ -1,6 +1,6 @@
+import React from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header.jsx";
-import React from "react";
 import LocationFood from "../components/LocationFood.jsx";
 
 export default function Extra() {
