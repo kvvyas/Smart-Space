@@ -1,36 +1,38 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header.jsx";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
+  const [message, setMessage] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
-    setSuccess(null);
+    setMessage(null); // ✅ Clear old messages before new request
 
     try {
-      console.log("response recieved")
-      
       const response = await fetch("http://127.0.0.1:5000/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await response.json();
+      
       if (response.ok) {
-        setSuccess("Login successful!");
+        // ✅ Store user data in localStorage
+        localStorage.setItem("user", data.email);
+
+        // ✅ Redirect to home page
+        navigate("/");
       } else {
-        setError(data.message || "Login failed");
+        setMessage({ text: data.message, type: "error" });
       }
     } catch (err) {
-      setError("Server error, please try again later.");
+      setMessage({ text: "Server error, please try again later.", type: "error" });
     }
   };
 
@@ -49,8 +51,8 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="w-full px-3 py-2 border border-gray-300 rounded text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
-                />
+                className="w-full px-3 py-2 border border-gray-300 rounded text-gray-900"
+              />
             </div>
             <div className="mb-6">
               <label htmlFor="password" className="block text-gray-700 text-sm font-medium mb-1">Password</label>
@@ -60,12 +62,18 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full px-3 py-2 border border-gray-300 rounded text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-400"
-                />
+                className="w-full px-3 py-2 border border-gray-300 rounded text-gray-900"
+              />
             </div>
-            {error && <p className="text-red-500 text-center">{error}</p>}
-            {success && <p className="text-green-500 text-center">{success}</p>}
-            <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded font-semibold transition-colors">
+
+            {/* ✅ Show only one message */}
+            {message && (
+              <p className={message.type === "error" ? "text-red-500 text-center" : "text-green-500 text-center"}>
+                {message.text}
+              </p>
+            )}
+
+            <button type="submit" className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded">
               Login
             </button>
           </form>
