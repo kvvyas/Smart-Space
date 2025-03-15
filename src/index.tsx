@@ -21,7 +21,6 @@ export default function Main() {
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
-
       </Routes>
     </BrowserRouter>
   );
