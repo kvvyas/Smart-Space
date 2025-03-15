@@ -1,8 +1,7 @@
-import Header from './components/Header.jsx';
-import Footer from './components/Footer.jsx';
 import React from 'react';
 import { IoSearch } from "react-icons/io5";
-
+import Footer from './components/Footer.jsx';
+import Header from './components/Header.jsx';
 
 function App() {
   return (
