@@ -9,7 +9,7 @@ users = {"test@example.com": User("test@example.com", "password123"),
          "Parsa.ghadimi76@gmail.com":User("Parsa.ghadimi76@gmail.com","1234")}
 
 @auth.route('/login', methods=['POST', 'OPTIONS'])  # ✅ Allow OPTIONS requests
-@cross_origin(origins="http://localhost:5173", supports_credentials=True)
+@cross_origin(origins="http://localhost:5176", supports_credentials=True)
 def login():
     # ✅ Handle preflight OPTIONS request
     if request.method == "OPTIONS":
