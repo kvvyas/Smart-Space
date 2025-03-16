@@ -1,7 +1,11 @@
 from flask import Blueprint, jsonify, request
 from flask_cors import CORS
 import requests
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
+auth_token = os.getenv("AUTH_TOKEN")
 
 main = Blueprint('main', __name__)
 
@@ -24,10 +28,10 @@ def get_contact():
 @main.route('/courseDetails')
 def get_course_details():
 
-    url = "https://opendata.concordia.ca/API/v1/course/schedule/filter/*/*/*"
+    url = "https://opendata.concordia.ca/API/v1/course/schedule/filter/*/COMP/*"
     payload = {}
     headers = {
-      'Authorization': 'Basic ODUzOmJiYjAxYjE4NDM3ODY2NGJjMDVkYWIyNGIxYmUzODdj'
+      'Authorization': auth_token
     }
 
     response = requests.request("GET", url, headers=headers, data=payload)
