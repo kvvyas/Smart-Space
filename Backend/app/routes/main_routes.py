@@ -164,10 +164,13 @@ def get_schedule_with_buildings():
         class_start_time = course.get("classStartTime", "00.00.00")
         class_end_time = course.get("classEndTime", "23.59.59")
         building_code = course.get("buildingCode", "")
+        room_code = course.get("roomCode", "")
+
         
         if (current_enrollment > 0 and class_status == "active" and 
             course.get(day_map[today], "N") == "Y" and 
-            class_start_time <= current_time <= class_end_time):
+            class_start_time <= current_time <= class_end_time and 
+            room_code.upper() != "ONLINE"):
             
             course_data = {
                 "departmentCode": course.get("departmentCode", ""),
