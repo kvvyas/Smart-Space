@@ -60,3 +60,33 @@ def get_course_details():
     else:
         return jsonify({"error": f"Failed to fetch data, status code: {response.status_code}"}), response.status_code
 
+@main.route('/builidingList')
+def get_building_List(): 
+    
+    url = "https://opendata.concordia.ca/API/v1/facilities/buildinglist/"
+    payload = {}
+    headers = {
+      'Authorization': auth_token
+    }
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    if response.status_code == 200:
+        # building_list = pd.DataFrame(response.json())
+        data = response.json()  # Parse JSON response
+
+
+        building_list = []
+        for building in data:
+            building_list.append({
+                "Campus": building.get("Campus", ""),
+                "Building": building.get("Building", ""),
+                "Building_Name": building.get("Building_Name", ""),
+                "Address": building.get("Address", "")
+            })
+        
+        return jsonify(building_list)
+
+    else:
+        raise Exception(f"API request failed with status code {response.status_code}")
+
