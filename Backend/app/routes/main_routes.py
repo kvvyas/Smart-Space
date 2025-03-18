@@ -4,6 +4,7 @@ import requests
 import os
 from dotenv import load_dotenv
 import datetime
+from collections import defaultdict
 
 
 load_dotenv()
@@ -189,3 +190,23 @@ def get_schedule_with_buildings():
             schedule_list.append(course_data)
     
     return jsonify(schedule_list)
+
+
+    
+# Route to aggregate total enrollments by building
+@main.route('/getBuildingEnrollmentTotals')
+def get_building_enrollment_totals():
+    schedule_response = get_schedule_with_buildings().json
+    
+    building_totals = defaultdict(lambda: {"totalEnrollment": 0, "buildingDetails": {}})
+    
+    for course in schedule_response:
+        building_code = course.get("buildingCode", "")
+        enrollment = course.get("currentEnrollment", 0)
+        
+        if building_code:
+            building_totals[building_code]["totalEnrollment"] += enrollment
+            if "buildingDetails" in course:
+                building_totals[building_code]["buildingDetails"] = course["buildingDetails"]
+    
+    return jsonify(building_totals)
