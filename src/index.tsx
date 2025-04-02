@@ -6,6 +6,7 @@ import "./index.css";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Extra from "./pages/Extra.jsx";
+import LiveSchedule from "./pages/LiveSchedule";
 import Login from "./pages/Login";
 import Step1 from "./pages/Step1.jsx";
 import Step2 from "./pages/Step2.jsx";
@@ -21,6 +22,7 @@ export default function Main() {
         <Route path="/contactus" element={<ContactUs />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/schedule" element={<LiveSchedule />} />
       </Routes>
     </BrowserRouter>
   );
