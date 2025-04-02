@@ -1,7 +1,7 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header.jsx";
 import React from "react";
 import FeedbackButton from "../components/ButtonStep2";
+import Footer from "../components/Footer";
+import Header from "../components/Header.jsx";
 import CrowdednessSlider from "../components/SliderStep2";
 
 export default function Step2() {
@@ -18,6 +18,7 @@ export default function Step2() {
 
         {/* Slider */}
         <CrowdednessSlider />
+        
       </main>
 
       {/* Footer */}
