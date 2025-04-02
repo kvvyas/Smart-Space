@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Footer from "../components/Footer";
 import Header from '../components/Header.jsx';
 import LocationChoice from '../components/LocationChoice.jsx';
+import { useLocation } from 'react-router-dom';
 
-export default function Step1({ campus }) {
+export default function Step1() {
+  const location = useLocation();
+  const campus = location.state?.campus;
+
   const [buildingData, setBuildingData] = useState([]);
   const [error, setError] = useState(null);
 
@@ -16,28 +20,25 @@ export default function Step1({ campus }) {
         return response.json();
       })
       .then((data) => {
-        // Filter, map, then sort by totalEnrollment
         const filtered = Object.entries(data)
-          .filter(([_, building]) => building?.buildingDetails?.Campus === "LOY")
+          .filter(([_, building]) => building?.buildingDetails?.Campus === campus)
           .map(([code, building]) => ({
             code,
             ...building
           }))
-          .sort((a, b) => a.totalEnrollment - b.totalEnrollment); // ⬅️ sort in increasing order
-  
+          .sort((a, b) => a.totalEnrollment - b.totalEnrollment);
+
         setBuildingData(filtered);
-        console.log(filtered);
       })
       .catch((error) => {
         console.error("Error fetching building data:", error);
         setError("Failed to load building information. Please try again later.");
       });
   };
-  
 
   useEffect(() => {
-    getBuildingPersonData();
-  }, [campus]); // re-run if campus changes
+    if (campus) getBuildingPersonData();
+  }, [campus]);
 
   return (
     <div className="bg-gray-800 min-h-screen flex flex-col text-white">
