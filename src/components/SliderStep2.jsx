@@ -1,18 +1,30 @@
-import React from 'react';
+import React, { useState } from "react";
 
-function CrowdednessSlider({ value, onChange }) {
+function CrowdednessSlider() {
+  const [value, setValue] = useState(50);
+
   return (
-    <div className="flex flex-col items-center">
-      <p className="text-white mb-2">Please tell us how crowded the place is:</p>
-      <input
-        type="range"
-        min="1"
-        max="10"
-        step="1"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-3/4 appearance-none h-2 bg-purple-200 rounded-lg focus:outline-none cursor-pointer"
-      />
+    <div className="w-full max-w-md text-center space-y-2">
+      <p className="text-lg">Please tell us how crowded the place is:</p>
+
+      {/* Labels and slider */}
+      <div className="flex flex-col space-y-2">
+        <div className="flex justify-between text-sm text-gray-400 px-1">
+          <span>Low</span>
+          <span>High</span>
+        </div>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          className="w-full appearance-none h-2 rounded bg-purple-300 focus:outline-none"
+        />
+      </div>
+
+      {/* Optional: show value */}
+      <p className="text-sm text-gray-400">Crowdedness: {value}%</p>
     </div>
   );
 }

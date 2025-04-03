@@ -131,7 +131,8 @@ def get_schedule_with_buildings():
     buildings_dict = {b["Building"]: {
         "Campus": b.get("Campus", ""),
         "Building_Name": b.get("Building_Name", ""),
-        "Address": b.get("Address", "")
+        "Address": b.get("Address", ""),
+        "Building_Long_Name": b.get("Building_Long_Name", "")
     } for b in buildings_data}
     
     # Fetch course schedule data
