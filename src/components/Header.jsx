@@ -29,7 +29,7 @@ function Header() {
         <nav className="flex space-x-6">
           <Link to="/ContactUs" className="text-gray-300 hover:text-blue-400">Contact us</Link>
           <Link to="/AboutUs" className="text-gray-300 hover:text-blue-400">About us</Link>
-          <Link to="/schedule" className="text-gray-300 hover:text-blue-400">Schedule</Link>
+          <Link to="/schedule" className="text-gray-300 hover:text-blue-400">Ongoing Classes</Link>
         </nav>
       </div>
 
