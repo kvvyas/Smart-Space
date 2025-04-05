@@ -1,11 +1,12 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Footer from "../components/Footer";
 import Header from '../components/Header.jsx';
 import LocationChoice from '../components/LocationChoice.jsx';
 
 export default function Step1() {
   const location = useLocation();
+  const navigate = useNavigate(); //  initialize navigation
   const { campus, buildingData } = location.state || {};
 
   console.log(buildingData.length == 0);
@@ -24,11 +25,17 @@ export default function Step1() {
         ) : (
           <div className="grid grid-cols-2 gap-24">
             {filteredBuildings.slice(0, 4).map((building, index) => (
+              <div
+              key={index}
+              onClick={() => navigate("/step2", { state: building })} //  go to step2 with building info
+              className="cursor-pointer"
+            >
               <LocationChoice 
                 key={index}
                 title={`${building.buildingDetails?.Building_Long_Name}`}
                 description={`No. of people in building: ${building.totalEnrollment}`}
               />
+              </div>
             ))}
           </div>
         )}
